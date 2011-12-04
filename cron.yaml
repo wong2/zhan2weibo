@@ -1,0 +1,4 @@
+cron:
+- description: zhan2weibo
+  url: /zhan2weibo
+  schedule: every 5 minutes

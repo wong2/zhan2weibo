@@ -1,0 +1,9 @@
+application: zhan2weibo
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /zhan2weibo
+  script: zhan2weibo.py
+  login: admin
