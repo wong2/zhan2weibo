@@ -1,4 +1,5 @@
 #-*-coding:utf-8-*-
+
 from zhan  import Zhan
 from weibo import Weibo
 import sys
@@ -12,7 +13,6 @@ class MyData(db.Model):
 if __name__ == "__main__":
     data = MyData.get_or_insert(key_name='mydata', last_id="feed_3674946092032508824")
     last_post_id = data.last_id
-    #last_post_id = feed_3674946092032508824
 
     weibo = Weibo()
     zhan = Zhan("ishoothust")
