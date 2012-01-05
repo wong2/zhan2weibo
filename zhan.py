@@ -1,5 +1,5 @@
 #-*-coding:utf-8-*-
-import sys
+import sys, re
 from google.appengine.api import urlfetch
 from BeautifulSoup import BeautifulSoup
 
@@ -14,7 +14,7 @@ class Zhan:
         while True:
             html = urlfetch.fetch("%s?page=%d" % (self.url, _now_page)).content
             soup = BeautifulSoup(html)
-            posts = soup.findAll("article", {"class" : "post-photo post"})
+            posts = soup.findAll("article", {"class" : re.compile(r'\bpost\b')})
             for post in posts:
                 post_id = post["id"]
                 try:
@@ -26,6 +26,7 @@ class Zhan:
                     new_post["link"] = self.url + "?gid=" + post_id[5:]
                     _title = post.find("h4").string
                     _first_photo = post.find("div", {"class" : "photo"})
+                    new_post["photo_count"] = len(post.findAll("div", {"class" : "photo"}))
                     new_post["image_url"] = _first_photo.find("img")["data-src"]
                     if not _title:
                         _title = _first_photo.nextSibling.nextSibling.string.strip()
@@ -38,6 +39,6 @@ class Zhan:
     
 if __name__ == "__main__":
     zhan = Zhan("ishoothust")
-    new_posts = zhan.get_new_posts("feed_3674946092032248595")
+    new_posts = zhan.get_new_posts("feed_3602888497997001637")
     for new_post in new_posts:
-        print new_post["title"]
+        print new_post["title"], new_post["photo_count"]
