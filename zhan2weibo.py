@@ -19,12 +19,12 @@ if __name__ == "__main__":
     new_posts = zhan.get_new_posts(last_post_id)
 
     for post in new_posts:
-        image_url = post["image_url"]
+        image_url = post["image_url"].encode("utf-8")
         msg = "#我们爱拍华科#%s " % post["title"].encode("utf-8")
         count = post["photo_count"] - 1
         msg += "还有%d张精彩照片呦:" % count if count else " "
         msg += post["link"].encode("utf-8")
-        weibo.send(msg, image_url.encode("utf-8"))
+        weibo.send(msg, image_url)
         last_post_id = post["id"]
 
     data.last_id = last_post_id

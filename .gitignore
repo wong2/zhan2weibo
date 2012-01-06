@@ -1,3 +1,4 @@
 *.pyc
 *~
 real_config.py
+weibo.auth.py
